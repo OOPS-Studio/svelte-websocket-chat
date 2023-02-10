@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ws": "^8.5.4",
+    "common": "file:../common",
+    "joi": "^17.7.0",
+    "typescript": "^4.9.5",
+    "ws": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
+  }
+}
