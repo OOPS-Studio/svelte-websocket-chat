@@ -1,4 +1,4 @@
-import type { FromClient, FromServer, SafeWebSocketConnectionEventListenerCallbackTable } from "common";
+import type { FromClient, FromServer, SafeWebSocketConnectionEventListenerCallbackTable, ArbitraryMessage } from "common";
 
 import { WebSocket, RawData } from "ws";
 
@@ -18,14 +18,7 @@ export class SafeWebSocketConnection{
 	}
 
 	handleMessage(message: RawData) {
-		type ArbitraryMessageFromClient<T> = {
-			[K in keyof T]: {
-				messageType: K,
-				content: T[K]
-			}
-		}[keyof T];
-
-		let data: ArbitraryMessageFromClient<FromClient>;
+		let data: ArbitraryMessage<FromClient>;
 
 		try {
 			data = JSON.parse(message.toString());

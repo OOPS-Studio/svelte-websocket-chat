@@ -10,16 +10,23 @@ export interface FromClient{
 	}
 }
 
-export type SafeWebSocketEventListenerCallback = <K>(data: FromServer[K]) => void;
+export type ArbitraryMessage<T> = {
+	[K in keyof T]: {
+		messageType: K,
+		content: T[K]
+	}
+}[keyof T]
+
+export type SafeWebSocketEventListenerCallback = (data: FromServer[keyof FromServer]) => void;
 
 export type SafeWebSocketEventListenerCallbackTable = {
-	[K in keyof FromServer]?: SafeWebSocketEventListenerCallback<K>[]
+	[K in keyof FromServer]?: SafeWebSocketEventListenerCallback[]
 }
 
-export type SafeWebSocketConnectionEventListenerCallback = <K>(data: FromClient[K]) => void;
+export type SafeWebSocketConnectionEventListenerCallback = (data: FromClient[keyof FromClient]) => void;
 
 export type SafeWebSocketConnectionEventListenerCallbackTable = {
-	[K in keyof FromClient]?: SafeWebSocketConnectionEventListenerCallback<K>[]
+	[K in keyof FromClient]?: SafeWebSocketConnectionEventListenerCallback[]
 }
 
 /*

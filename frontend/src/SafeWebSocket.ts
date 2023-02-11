@@ -1,4 +1,4 @@
-import type { FromServer, FromClient, SafeWebSocketEventListenerCallbackTable } from "common";
+import type { FromServer, FromClient, SafeWebSocketEventListenerCallbackTable, ArbitraryMessage } from "common";
 
 export class SafeWebSocket{
 	webSocket: WebSocket;
@@ -16,14 +16,7 @@ export class SafeWebSocket{
 	}
 
 	handleMessage(message: MessageEvent<any>) {
-		type ArbitraryMessageFromServer<T> = {
-			[K in keyof T]: {
-				messageType: K,
-				content: T[K]
-			}
-		}[keyof T];
-
-		const data: ArbitraryMessageFromServer<FromServer> = JSON.parse(message.data);
+		const data: ArbitraryMessage<FromServer> = JSON.parse(message.data);
 
 		const eventListeners = this.registeredEventListeners[data.messageType];
 
